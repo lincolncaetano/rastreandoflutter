@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rastreando/Views/Home/DetalheEncomenda.dart';
 import 'package:rastreando/Views/Home/EncomendaCadastro.dart';
 import 'package:rastreando/Views/Home/Home.dart';
 import 'package:rastreando/Views/Login/CadastroUsuario.dart';
@@ -19,6 +20,7 @@ class Routers{
   static const String tabs = '/tabs';
   static const String editarPerfil = '/editarPerfil';
   static const String encomendaCadastro = '/encomendaCadastro';
+  static const String encomendaDetalhe = '/encomendaDetalhe';
 
 
   static Route<dynamic> genarateRoute(RouteSettings settings){
@@ -59,6 +61,10 @@ class Routers{
       case encomendaCadastro:
         return MaterialPageRoute(
             builder: (_) => EncomendaCadastro()
+        );
+      case encomendaDetalhe:
+        return MaterialPageRoute(
+            builder: (_) => DetalheEncomenda(args)
         );
 
       default:

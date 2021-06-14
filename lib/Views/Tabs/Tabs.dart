@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:rastreando/Palleta.dart';
+import 'package:rastreando/Views/Home/EncomendasEntregues.dart';
 import 'package:rastreando/Views/Home/Home.dart';
 import 'package:rastreando/Views/Usuario/Perfil.dart';
 
@@ -50,6 +51,7 @@ class _TabsState extends State<Tabs> with SingleTickerProviderStateMixin {
 
     List<Widget> telas =[
       Home(),
+      EncomendasEntregues(),
       Perfil()
     ];
 
@@ -72,7 +74,12 @@ class _TabsState extends State<Tabs> with SingleTickerProviderStateMixin {
         items: [
           BottomNavigationBarItem(
             //title: Text("Home", style: TextStyle( fontSize: 8)),
-              label: "Marcações",
+              label: "Pendentes",
+              icon: Icon(Icons.home, size: 0,)
+          ),
+          BottomNavigationBarItem(
+            //title: Text("Home", style: TextStyle( fontSize: 8)),
+              label: "Entregues",
               icon: Icon(Icons.home, size: 0,)
           ),
           BottomNavigationBarItem(

@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -17,10 +19,12 @@ class EncomendaCadastro extends StatefulWidget {
 
 class _EncomendaCadastroState extends State<EncomendaCadastro> with SingleTickerProviderStateMixin {
   AnimationController _controller;
+  final GlobalKey<ScaffoldMessengerState> scaffoldState = GlobalKey<ScaffoldMessengerState>();
   TextEditingController _controllerCodigo = TextEditingController();
   TextEditingController _controllerDescricao = TextEditingController();
   Encomenda _encomenda;
   User user;
+  AdmobReward rewardAd;
 
   @override
   void initState() {
@@ -29,6 +33,65 @@ class _EncomendaCadastroState extends State<EncomendaCadastro> with SingleTicker
     _encomenda = new Encomenda();
     init();
 
+    rewardAd = AdmobReward(
+      adUnitId: getRewardBasedVideoAdUnitId(),
+      listener: (AdmobAdEvent event, Map<String, dynamic> args) {
+        if (event == AdmobAdEvent.closed) rewardAd.load();
+        handleEvent(event, args, 'Reward');
+      },
+    );
+    rewardAd.load();
+  }
+
+  String getRewardBasedVideoAdUnitId() {
+    if (Platform.isIOS) {
+      return 'ca-app-pub-4896657111169099/3882914856';
+    } else if (Platform.isAndroid) {
+      return 'ca-app-pub-4896657111169099/9474330492';
+    }
+    return null;
+  }
+
+  void handleEvent(
+      AdmobAdEvent event, Map<String, dynamic> args, String adType) {
+    switch (event) {
+      case AdmobAdEvent.loaded:
+        //showSnackBar('New Admob $adType Ad loaded!');
+        break;
+      case AdmobAdEvent.opened:
+        //showSnackBar('Admob $adType Ad opened!');
+        break;
+      case AdmobAdEvent.closed:
+        //showSnackBar('Admob $adType Ad closed!');
+        break;
+      case AdmobAdEvent.failedToLoad:
+        //showSnackBar('Admob $adType failed to load. :(');
+        break;
+      case AdmobAdEvent.rewarded:
+        showDialog(
+          context: scaffoldState.currentContext,
+          builder: (BuildContext context) {
+            return WillPopScope(
+              child: AlertDialog(
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text('Reward callback fired. Thanks Andrew!'),
+                    Text('Type: ${args['type']}'),
+                    Text('Amount: ${args['amount']}'),
+                  ],
+                ),
+              ),
+              onWillPop: () async {
+                scaffoldState.currentState.hideCurrentSnackBar();
+                return true;
+              },
+            );
+          },
+        );
+        break;
+      default:
+    }
   }
 
   init() async {
@@ -41,6 +104,7 @@ class _EncomendaCadastroState extends State<EncomendaCadastro> with SingleTicker
   void dispose() {
     _controller.dispose();
     super.dispose();
+    rewardAd.dispose();
   }
 
 
@@ -96,6 +160,7 @@ class _EncomendaCadastroState extends State<EncomendaCadastro> with SingleTicker
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldState,
       appBar: AppBar(title: Text("Adicionar encomenda"),
         actions: <Widget>[
           TextButton(

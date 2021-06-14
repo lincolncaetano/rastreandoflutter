@@ -97,26 +97,10 @@ class _PerfilState extends State<Perfil> with SingleTickerProviderStateMixin {
                   enabled: false,
                 ),
                 TextFormFieldCustom(
-                  controller: _controllerCelular,
-                  label: "Celular",
-                  enabled: false,
-                ),
-                TextFormFieldCustom(
                   controller: _controllerEmail,
                   label: "Email",
                   enabled: false,
                 ),
-                TextFormFieldCustom(
-                  controller: _controllerCpf,
-                  label: "CPF",
-                  enabled: false,
-                ),
-                TextFormFieldCustom(
-                  controller: _controllerDataNasc,
-                  label: "Data de Nascimento",
-                  type: TextInputType.phone,
-                  enabled: false,
-                )
               ],
             ),
           ),
