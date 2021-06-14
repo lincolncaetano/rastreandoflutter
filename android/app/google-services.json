@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "368245308705",
+    "project_id": "rastreano",
+    "storage_bucket": "rastreano.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:368245308705:android:1a1985d237743950a81260",
+        "android_client_info": {
+          "package_name": "br.com.linksdev.rastreando"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "368245308705-008a5re3n79635md4movl644slc80ens.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvbjZWzrrZaTq-3reLS9mOi8Lw8V_2O98"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "368245308705-008a5re3n79635md4movl644slc80ens.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
