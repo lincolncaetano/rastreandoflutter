@@ -19,6 +19,7 @@ class _ItemEncomendaState extends State<ItemEncomenda> {
   Widget build(BuildContext context) {
     return Container(
       height: 50,
+      color: Colors.white,
       child: Text(this.widget.encomenda.codObjeto),
     );
   }

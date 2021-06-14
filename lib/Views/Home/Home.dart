@@ -24,6 +24,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this);
+    _adicionarListenerPendentes();
   }
 
   _adicionarListenerPendentes() async{
@@ -33,6 +34,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
     FirebaseFirestore db = FirebaseFirestore.instance;
     Stream<QuerySnapshot> stream = db
+        .collection('usuarios')
+        .doc(user.uid)
         .collection('encomendaPendentes')
         .snapshots();
 
@@ -51,11 +54,11 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Pendentes"),
-      actions: [
-        IconButton(icon: Icon(Icons.add), onPressed: (){
-          Navigator.pushNamed(context, Routers.encomendaCadastro);
-        })
-      ],),
+        actions: [
+          IconButton(icon: Icon(Icons.add), onPressed: (){
+            Navigator.pushNamed(context, Routers.encomendaCadastro);
+          })
+        ],),
       body: StreamBuilder(
         stream: _streamController.stream,
         builder: (contex, snapshot){
