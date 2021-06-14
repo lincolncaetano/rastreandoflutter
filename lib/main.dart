@@ -34,7 +34,8 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   //await FirebaseAuth.instance.useEmulator('http://localhost:9099');
-  Admob.initialize();
+  //Admob.initialize();
+  Admob.initialize(testDeviceIds: ['0DDB4318ADF4E34A1C1EB8E9A7BAFC3B']);
   runApp(
       MaterialApp(
         debugShowCheckedModeBanner: false,

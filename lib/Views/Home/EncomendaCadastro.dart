@@ -9,6 +9,9 @@ import 'package:rastreando/Models/Encomenda.dart';
 import 'package:rastreando/Utils/FireUtils.dart';
 import 'package:rastreando/Views/Widgets/TextFormFieldCutom.dart';
 import 'package:http/http.dart' as http;
+import 'package:validadores/validadores.dart';
+
+import '../../Models/Encomenda.dart';
 
 class EncomendaCadastro extends StatefulWidget {
   const EncomendaCadastro({Key key}) : super(key: key);
@@ -45,8 +48,9 @@ class _EncomendaCadastroState extends State<EncomendaCadastro> with SingleTicker
 
   String getRewardBasedVideoAdUnitId() {
     if (Platform.isIOS) {
-      return 'ca-app-pub-4896657111169099/3882914856';
+      //return 'ca-app-pub-4896657111169099/3882914856';
     } else if (Platform.isAndroid) {
+      print("android");
       return 'ca-app-pub-4896657111169099/9474330492';
     }
     return null;
@@ -68,27 +72,7 @@ class _EncomendaCadastroState extends State<EncomendaCadastro> with SingleTicker
         //showSnackBar('Admob $adType failed to load. :(');
         break;
       case AdmobAdEvent.rewarded:
-        showDialog(
-          context: scaffoldState.currentContext,
-          builder: (BuildContext context) {
-            return WillPopScope(
-              child: AlertDialog(
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Text('Reward callback fired. Thanks Andrew!'),
-                    Text('Type: ${args['type']}'),
-                    Text('Amount: ${args['amount']}'),
-                  ],
-                ),
-              ),
-              onWillPop: () async {
-                scaffoldState.currentState.hideCurrentSnackBar();
-                return true;
-              },
-            );
-          },
-        );
+        salvarEncomenda();
         break;
       default:
     }
@@ -108,8 +92,7 @@ class _EncomendaCadastroState extends State<EncomendaCadastro> with SingleTicker
   }
 
 
-  salvarEncomenda() async{
-
+  buscarEncomenda() async{
 
     Uri uri = Uri.parse("https://proxyapp.correios.com.br/v1/sro-rastro/"+_controllerCodigo.text);
 
@@ -124,37 +107,70 @@ class _EncomendaCadastroState extends State<EncomendaCadastro> with SingleTicker
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
-      Encomenda e = Encomenda.fromJson(jsonDecode(response.body));
-      e.descricao = _controllerDescricao.text;
-      e.idUsuario = user.uid;
 
-      FirebaseFirestore db = FirebaseFirestore.instance;
+      Map<String, dynamic> json = jsonDecode(response.body)["objetos"][0];
 
+      if(json["mensagem"] == "SRO-019: Objeto inválido"){
 
-      if(e.eventos.length > 0 && e.eventos[0].codigo == "BDE"){
-        db.collection("usuarios")
-            .doc(user.uid)
-            .collection("encomendaEntregues")
-            .doc(e.codObjeto)
-            .set(e.toMap());
+        showDialog(
+          context: scaffoldState.currentContext,
+          builder: (BuildContext context) {
+            return WillPopScope(
+                child: AlertDialog(
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text('Codigo inválido'),
+                    ],
+                  ),
+                ),
+                onWillPop: () async {
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                  return true;
+                }
+            );
+          },
+        );
+
       }else{
-        db.collection("usuarios")
-            .doc(user.uid)
-            .collection("encomendaPendentes")
-            .doc(e.codObjeto)
-            .set(e.toMap());
+        print(json["mensagem"]);
 
-        db.collection("encomendaPendentes")
-            .doc(e.codObjeto)
-            .set(e.toMap());
+        Encomenda e = Encomenda.fromJson(jsonDecode(response.body));
+        e.descricao = _controllerDescricao.text;
+        e.idUsuario = user.uid;
+        _encomenda = e;
+
+        rewardAd.show();
       }
-
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
       throw Exception('Failed to load album');
     }
 
+  }
+
+  salvarEncomenda() async{
+    FirebaseFirestore db = FirebaseFirestore.instance;
+    if(_encomenda.eventos.length > 0 && _encomenda.eventos[0].codigo == "BDE"){
+      db.collection("usuarios")
+          .doc(user.uid)
+          .collection("encomendaEntregues")
+          .doc(_encomenda.codObjeto)
+          .set(_encomenda.toMap());
+    }else{
+      db.collection("usuarios")
+          .doc(user.uid)
+          .collection("encomendaPendentes")
+          .doc(_encomenda.codObjeto)
+          .set(_encomenda.toMap());
+
+      db.collection("encomendaPendentes")
+          .doc(_encomenda.codObjeto)
+          .set(_encomenda.toMap());
+    }
+
+    Navigator.pop(context);
   }
 
   @override
@@ -166,7 +182,7 @@ class _EncomendaCadastroState extends State<EncomendaCadastro> with SingleTicker
           TextButton(
             child: Text("Salvar"),
             onPressed: (){
-              salvarEncomenda();
+              buscarEncomenda();
             },
           )
         ]),
@@ -179,7 +195,11 @@ class _EncomendaCadastroState extends State<EncomendaCadastro> with SingleTicker
             onSaved: (codigo){
               _encomenda.codObjeto = codigo;
             },
-            validator: (valor){},),
+            validator: (valor){
+              return Validador()
+                  .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
+                  .valido(valor);
+            },),
           TextFormFieldCustom(
             controller: _controllerDescricao,
             label: "Descricao",
@@ -187,7 +207,11 @@ class _EncomendaCadastroState extends State<EncomendaCadastro> with SingleTicker
             onSaved: (descricao){
               _encomenda.descricao = descricao;
             },
-            validator: (valor){},),
+            validator: (valor){
+              return Validador()
+                  .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
+                  .valido(valor);
+            },),
         ],
       ),
     );

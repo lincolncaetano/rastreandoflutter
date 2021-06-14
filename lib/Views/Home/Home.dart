@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -83,9 +85,21 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                       List<DocumentSnapshot> anuncios = querySnapshot.docs.toList();
                       DocumentSnapshot documentSnapshot = anuncios[indice];
                       Encomenda encomenda = Encomenda.fromDocSnap(documentSnapshot);
-                      return ItemEncomenda(
+                      return indice % 2 == 0 ? Container(
+                        child: Column(
+                          children: [
+                            ItemEncomenda(
+                                encomenda: encomenda
+                            ),
+                            AdmobBanner(
+                              adUnitId: getBannerAdUnitId(),
+                              adSize: AdmobBannerSize.BANNER,
+                            )
+                          ],
+                        ),
+                      ) : ItemEncomenda(
                           encomenda: encomenda
-                      );
+                      ) ;
                     });
 
               }
@@ -94,5 +108,14 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         },
       ),
     );
+  }
+
+  String getBannerAdUnitId() {
+    if (Platform.isIOS) {
+      return 'ca-app-pub-3940256099942544/2934735716';
+    } else if (Platform.isAndroid) {
+      return 'ca-app-pub-3940256099942544/6300978111';
+    }
+    return null;
   }
 }
