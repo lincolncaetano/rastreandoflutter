@@ -25,16 +25,24 @@ class Encomenda{
     this.codObjeto = snapshot.data()["codObjeto"];
     this.ativo = snapshot.data()["ativo"];
     this.bloqueioObjeto = snapshot.data()["bloqueioObjeto"];
-    this.eventos = snapshot.data()["eventos"];
+    //this.eventos = snapshot.data()["eventos"];
     this.habilitaAutoDeclaracao = snapshot.data()["habilitaAutoDeclaracao"];
     this.habilitaLocker = snapshot.data()["habilitaLocker"];
     this.habilitaPercorridaCarteiro = snapshot.data()["habilitaPercorridaCarteiro"];
     this.permiteEncargoImportacao = snapshot.data()["permiteEncargoImportacao"];
     this.possuiLocker = snapshot.data()["possuiLocker"];
     this.modalidade = snapshot.data()["modalidade"];
-    this.tipoPostal = snapshot.data()["tipoPostal"];
+    this.tipoPostal = TipoPostal.fromJson(snapshot.data()["tipoPostal"]);
     this.idUsuario = snapshot.data()["idUsuario"];
     this.descricao = snapshot.data()["descricao"];
+
+    List<Evento> listaEvento = [];
+    List<dynamic> lista = snapshot.data()["eventos"];
+    lista.forEach((element) {
+      listaEvento.add(Evento.fromJson(element));
+    });
+    this.eventos = listaEvento;
+
   }
 
   Encomenda.fromJson(Map<String, dynamic> jsonRaiz){
