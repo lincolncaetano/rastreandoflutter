@@ -61,51 +61,61 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             Navigator.pushNamed(context, Routers.encomendaCadastro);
           })
         ],),
-      body: StreamBuilder(
-        stream: _streamController.stream,
-        builder: (contex, snapshot){
-          switch (snapshot.connectionState) {
-            case ConnectionState.none:
-            case ConnectionState.waiting:
-              break;
-            case ConnectionState.active:
-            case ConnectionState.done:
+      body: Column(
+        children: [
+          Expanded(
+            flex: 8,
+            child: StreamBuilder(
+              stream: _streamController.stream,
+              builder: (contex, snapshot){
+                switch (snapshot.connectionState) {
+                  case ConnectionState.none:
+                  case ConnectionState.waiting:
+                    break;
+                  case ConnectionState.active:
+                  case ConnectionState.done:
 
-              if(snapshot.hasError){
-                return Expanded(
-                  child: Text("Erro ao carregar mensagens"),
-                );
-              }else{
-                QuerySnapshot querySnapshot = snapshot.data;
+                    if(snapshot.hasError){
+                      return Expanded(
+                        child: Text("Erro ao carregar mensagens"),
+                      );
+                    }else{
+                      QuerySnapshot querySnapshot = snapshot.data;
 
 
-                return ListView.builder(
-                    itemCount: querySnapshot.docs.length,
-                    itemBuilder: (_, indice){
-                      List<DocumentSnapshot> anuncios = querySnapshot.docs.toList();
-                      DocumentSnapshot documentSnapshot = anuncios[indice];
-                      Encomenda encomenda = Encomenda.fromDocSnap(documentSnapshot);
-                      return indice % 2 == 0 ? Container(
-                        child: Column(
-                          children: [
-                            ItemEncomenda(
+                      return ListView.builder(
+                          itemCount: querySnapshot.docs.length,
+                          itemBuilder: (_, indice){
+                            List<DocumentSnapshot> anuncios = querySnapshot.docs.toList();
+                            DocumentSnapshot documentSnapshot = anuncios[indice];
+                            Encomenda encomenda = Encomenda.fromDocSnap(documentSnapshot);
+                            return indice % 1 == 0 ? Container(
+                              child: Column(
+                                children: [
+                                  ItemEncomenda(
+                                      encomenda: encomenda
+                                  ),
+
+                                ],
+                              ),
+                            ) : ItemEncomenda(
                                 encomenda: encomenda
-                            ),
-                            AdmobBanner(
-                              adUnitId: getBannerAdUnitId(),
-                              adSize: AdmobBannerSize.BANNER,
-                            )
-                          ],
-                        ),
-                      ) : ItemEncomenda(
-                          encomenda: encomenda
-                      ) ;
-                    });
+                            ) ;
+                          });
 
-              }
-          }
-          return Container();
-        },
+                    }
+                }
+                return Container();
+              },
+            ),
+          ),
+          Expanded(
+            flex: 1,
+              child: AdmobBanner(
+            adUnitId: getBannerAdUnitId(),
+            adSize: AdmobBannerSize.BANNER,
+          ))
+        ],
       ),
     );
   }
@@ -114,7 +124,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     if (Platform.isIOS) {
       return 'ca-app-pub-3940256099942544/2934735716';
     } else if (Platform.isAndroid) {
-      return 'ca-app-pub-3940256099942544/6300978111';
+      return 'ca-app-pub-4896657111169099/9028984969';
     }
     return null;
   }

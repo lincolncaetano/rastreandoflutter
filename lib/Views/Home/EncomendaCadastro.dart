@@ -51,7 +51,7 @@ class _EncomendaCadastroState extends State<EncomendaCadastro> with SingleTicker
       //return 'ca-app-pub-4896657111169099/3882914856';
     } else if (Platform.isAndroid) {
       print("android");
-      return 'ca-app-pub-4896657111169099/9474330492';
+      return 'ca-app-pub-4896657111169099/5472883336';
     }
     return null;
   }
@@ -60,16 +60,16 @@ class _EncomendaCadastroState extends State<EncomendaCadastro> with SingleTicker
       AdmobAdEvent event, Map<String, dynamic> args, String adType) {
     switch (event) {
       case AdmobAdEvent.loaded:
-        //showSnackBar('New Admob $adType Ad loaded!');
+        print('New Admob $adType Ad loaded!');
         break;
       case AdmobAdEvent.opened:
-        //showSnackBar('Admob $adType Ad opened!');
+        print('Admob $adType Ad opened!');
         break;
       case AdmobAdEvent.closed:
-        //showSnackBar('Admob $adType Ad closed!');
+        print('Admob $adType Ad closed!');
         break;
       case AdmobAdEvent.failedToLoad:
-        //showSnackBar('Admob $adType failed to load. :(');
+        print('Admob $adType failed to load. :(');
         break;
       case AdmobAdEvent.rewarded:
         salvarEncomenda();
