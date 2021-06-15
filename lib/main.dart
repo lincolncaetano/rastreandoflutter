@@ -32,10 +32,10 @@ void logError(String code, String message) =>
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  //Admob.initialize();
+  Admob.initialize();
   await Firebase.initializeApp();
   //await FirebaseAuth.instance.useEmulator('http://localhost:9099');
-  Admob.initialize(testDeviceIds: ['E8DF5D1106EEBA0D5478A6689879B73D']);
+  //Admob.initialize(testDeviceIds: ['E8DF5D1106EEBA0D5478A6689879B73D']);
   runApp(
       MaterialApp(
         debugShowCheckedModeBanner: false,
