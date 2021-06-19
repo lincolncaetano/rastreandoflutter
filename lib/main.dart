@@ -1,6 +1,7 @@
 import 'package:admob_flutter/admob_flutter.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:rastreando/Palleta.dart';
 import 'package:rastreando/Routers.dart';
 import 'package:rastreando/Views/Login/PreLogin.dart';
@@ -44,6 +45,11 @@ void main() async{
         theme: temaPadrao,
         initialRoute: "/",
         onGenerateRoute: Routers.genarateRoute,
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate
+        ],
+        supportedLocales: [const Locale('pt', 'BR')],
       )
   );
 

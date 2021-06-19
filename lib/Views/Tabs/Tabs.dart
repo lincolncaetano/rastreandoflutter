@@ -60,7 +60,7 @@ class _TabsState extends State<Tabs> with SingleTickerProviderStateMixin {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         fixedColor: Palleta.botao,
-        unselectedItemColor: Colors.grey,
+        unselectedItemColor: Colors.blueGrey,
         backgroundColor: Palleta.tabs2,
         showUnselectedLabels: true,
         showSelectedLabels: true,

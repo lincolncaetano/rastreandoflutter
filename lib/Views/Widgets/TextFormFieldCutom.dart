@@ -56,15 +56,15 @@ class TextFormFieldCustom extends StatelessWidget {
             EdgeInsets.fromLTRB(16, 8, 16, 8),
             //hintText: this.hint,
             labelText: this.label,
-            labelStyle: TextStyle(color: Color(0xff937d56)),
+            labelStyle: TextStyle(color: Color(0xfff5f5f5)),
             //filled: true,
             disabledBorder: new OutlineInputBorder(
               borderRadius: new BorderRadius.circular(25.0),
-              borderSide:  BorderSide(color: Color(0xff937d56) ),
+              borderSide:  BorderSide(color: Color(0xfff5f5f5) ),
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(25),
-              borderSide: BorderSide(color: Color(0xff937d56) )
+              borderSide: BorderSide(color: Color(0xfff5f5f5) )
             )
         ),
         maxLines: this.maxLines,
