@@ -8,7 +8,7 @@ import 'package:rastreando/Views/Login/PreLogin.dart';
 
 
 final ThemeData temaPadrao = ThemeData(
-    primaryColor: Color(0xff937d56),
+    primaryColor: Color(0xffffffff),
     primaryTextTheme: TextTheme(
         headline1: TextStyle(color: Colors.white)
     ),
@@ -16,7 +16,8 @@ final ThemeData temaPadrao = ThemeData(
     hintColor: Color(0xffffffff),
     appBarTheme: AppBarTheme(
         color: Colors.transparent,
-        elevation: 0,toolbarTextStyle: TextStyle( color: Colors.white),
+        elevation: 0,
+        toolbarTextStyle: TextStyle( color: Colors.white, fontSize: 12),
         titleTextStyle: TextStyle(
           color: Colors.white,
         ),

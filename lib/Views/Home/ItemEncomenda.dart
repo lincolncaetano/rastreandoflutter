@@ -52,10 +52,9 @@ class ItemEncomenda extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(this.encomenda.descricao, style: TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF284E83)
+                          fontSize: 18, fontWeight: FontWeight.bold,
                       ),),
-                      Text(this.encomenda.eventos[0].descricao, style: TextStyle(color: Color(
-                          0xFF1F3D66)),)
+                      Text(this.encomenda.eventos[0].descricao)
                     ],
                   ),
                 ),

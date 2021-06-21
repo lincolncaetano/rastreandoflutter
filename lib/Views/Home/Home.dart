@@ -55,7 +55,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Pendentes"),
+      appBar: AppBar(title: Text("Pendentes", style: TextStyle(color: Colors.white),),
         actions: [
           IconButton(icon: Icon(Icons.add), onPressed: (){
             Navigator.pushNamed(context, Routers.encomendaCadastro);

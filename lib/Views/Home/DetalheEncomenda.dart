@@ -30,10 +30,19 @@ class _DetalheEncomendaState extends State<DetalheEncomenda> with SingleTickerPr
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(this.widget.encomenda.codObjeto),),
+      appBar: AppBar(title: Text(this.widget.encomenda.descricao, style: TextStyle(color: Colors.white),),),
       body: ListView.builder(
           itemCount: this.widget.encomenda.eventos.length,
           itemBuilder: (BuildContext context, int index){
+            if(index == 0){
+              return Column(children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(this.widget.encomenda.codObjeto, style: TextStyle(color: Colors.white),),
+                ),
+                ItemEvento(evento: this.widget.encomenda.eventos[index])
+              ],);
+            }
             return ItemEvento(evento: this.widget.encomenda.eventos[index]);
           }
       ),

@@ -132,6 +132,28 @@ class _EncomendaCadastroState extends State<EncomendaCadastro> with SingleTicker
           },
         );
 
+      }else if(json["mensagem"] == "SRO-020: Objeto não encontrado na base de dados dos Correios."){
+
+        showDialog(
+          context: scaffoldState.currentContext,
+          builder: (BuildContext context) {
+            return WillPopScope(
+                child: AlertDialog(
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text('Objeto não encontrado na base de dados dos Correios'),
+                    ],
+                  ),
+                ),
+                onWillPop: () async {
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                  return true;
+                }
+            );
+          },
+        );
+
       }else{
         print(json["mensagem"]);
 
@@ -177,10 +199,10 @@ class _EncomendaCadastroState extends State<EncomendaCadastro> with SingleTicker
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldState,
-      appBar: AppBar(title: Text("Adicionar encomenda"),
+      appBar: AppBar(title: Text("Adicionar encomenda", style: TextStyle(color: Colors.white),),
         actions: <Widget>[
           TextButton(
-            child: Text("Salvar"),
+            child: Text("Salvar", style: TextStyle(color: Colors.white),),
             onPressed: (){
               buscarEncomenda();
             },

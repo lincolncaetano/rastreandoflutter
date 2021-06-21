@@ -68,7 +68,7 @@ class _EncomendasEntreguesState extends State<EncomendasEntregues> with SingleTi
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Entregues"),
+      appBar: AppBar(title: Text("Entregues", style: TextStyle(color: Colors.white),),
         actions: [
           IconButton(icon: Icon(Icons.add), onPressed: (){
             Navigator.pushNamed(context, Routers.encomendaCadastro);

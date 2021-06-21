@@ -62,7 +62,7 @@ class _PerfilState extends State<Perfil> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Perfil"),
+        title: Text("Perfil", style: TextStyle(color: Colors.white),),
           actions: <Widget>[
             TextButton(
               child: Text("Editar", style: TextStyle(color: Colors.white)),
