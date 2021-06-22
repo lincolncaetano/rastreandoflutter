@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Palleta {
   // background gradient
 
-  static Color botao = Color(0xfff5f5f5);
+  static Color botao = Color(0xFF284E83);
   static Color contrasteEscuro = Color(0xff2d2d3a);
   static Color corTeste = Color(0xff22272c);
   static Color corTextoTeste = Color(0xffc2ad7d);
@@ -32,5 +32,17 @@ class Palleta {
       return botao;
     }
     return botao;
+  }
+
+  static Color getColor2(Set<MaterialState> states) {
+    const Set<MaterialState> interactiveStates = <MaterialState>{
+      MaterialState.pressed,
+      MaterialState.hovered,
+      MaterialState.focused,
+    };
+    if (states.any(interactiveStates.contains)) {
+      return Colors.white;
+    }
+    return Colors.white;
   }
 }

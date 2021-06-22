@@ -17,12 +17,12 @@ class ElevatedButtonCustom extends StatelessWidget {
       child: Text(
         label,
         style: TextStyle(
-          color: Palleta.contrasteEscuro,
+          color: Palleta.body2,
           fontWeight: FontWeight.bold,
         ),
       ),
       style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.resolveWith(Palleta.getColor)
+          backgroundColor: MaterialStateProperty.resolveWith(Palleta.getColor2)
       ),
       onPressed: onPressed
     );

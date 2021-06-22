@@ -126,12 +126,13 @@ class _EditarPerfilState extends State<EditarPerfil> with SingleTickerProviderSt
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Perfil"),
+        title: Text("Perfil", style: TextStyle(color: Colors.white),),
       ),
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Column(
                 children: <Widget>[
@@ -175,18 +176,6 @@ class _EditarPerfilState extends State<EditarPerfil> with SingleTickerProviderSt
                 },
                 validator: (valor){},),
               TextFormFieldCustom(
-                controller: _controllerCelular,
-                label: "Celular",
-                type: TextInputType.phone,
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                  TelefoneInputFormatter(),
-                ],
-                onSaved: (celular){
-                 // usuario.celular = celular;
-                },
-                validator: (valor){},),
-              TextFormFieldCustom(
                 controller: _controllerEmail,
                 label: "Email",
                 type: TextInputType.emailAddress,
@@ -194,52 +183,16 @@ class _EditarPerfilState extends State<EditarPerfil> with SingleTickerProviderSt
                   usuario.email = email;
                 },
                 validator: (valor){},),
-              TextFormFieldCustom(
-                controller: _controllerCpf,
-                label: "CPF",
-                type: TextInputType.number,
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                  CpfInputFormatter(),
-                ],
-                onSaved: (cpf){
-                  usuario.cpf = cpf;
-                },
-                  validator: (value) {
-                    // Aqui entram as validações
-                    return Validador()
-                        .add(Validar.CPF, msg: 'CPF Inválido')
-                        .add(Validar.OBRIGATORIO, msg: 'Campo obrigatório')
-                        .minLength(11)
-                        .maxLength(11)
-                        .valido(value,clearNoNumber: true);
-                  },
-                  decoration: InputDecoration(
-                      helperText: 'informe seu cpf',
-                      hintText: '123.456.789-00',
-                      labelText: 'CPF'
-                  ),),
-                  TextFormFieldCustom(
-                    controller: _controllerDataNasc,
-                    label: "Data de Nascimento",
-                    type: TextInputType.phone,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                      DataInputFormatter(),
-                    ],
-                    onSaved: (dataNascimento){
-                      //usuario.dataNascimento = dataNascimento;
+                ElevatedButtonCustom(
+                    label: "Salvar",
+                    onPressed: (){
+                      if(_formKey.currentState.validate()){
+                        _formKey.currentState.save();
+
+                        _salvarPefil();
+
+                      }
                     }),
-                  ElevatedButtonCustom(
-                      label: "Salvar",
-                      onPressed: (){
-                        if(_formKey.currentState.validate()){
-                          _formKey.currentState.save();
-
-                          _salvarPefil();
-
-                        }
-                      }),
             ],
           ),
         ),

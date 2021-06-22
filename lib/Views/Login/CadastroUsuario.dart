@@ -76,23 +76,53 @@ class _CadastroUsuarioState extends State<CadastroUsuario> with SingleTickerProv
         backgroundColor: Colors.transparent,
         elevation: 0,
         iconTheme: IconThemeData(
-          color: Palleta.botao, //change your color here
+          color: Colors.white, //change your color here
         ),
         title: Text("Cadastro", style: TextStyle(color: Palleta.botao),),
       ),
+      extendBodyBehindAppBar: true,
       body: Center(
         child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.white,
+            ),
+            margin: EdgeInsets.symmetric( horizontal: 10),
+            padding: EdgeInsets.all(20),
             child: Form(
               key: _formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 8),
+                    child: Text("Cadastro" , style: TextStyle(color: Palleta.body2, fontSize: 20, fontWeight: FontWeight.bold),),
+                  ),
                   TextFormFieldCustom(
                     controller: _controllerEmail,
                     label: "Email",
                     type: TextInputType.emailAddress,
+                    textStyle: TextStyle(color: Palleta.body2),
+                    decoration: InputDecoration(
+                        contentPadding:
+                        EdgeInsets.fromLTRB(16, 8, 16, 8),
+                        //hintText: "E-mail",
+                        labelText: "E-mail",
+                        //filled: true,
+                        labelStyle: TextStyle(color: Palleta.body2),
+                        disabledBorder: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(25.0),
+                          borderSide:  BorderSide(color: Palleta.body2 ),
+                        ),
+                        focusedBorder: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(25.0),
+                          borderSide:  BorderSide(color: Palleta.body2 ),
+                        ),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25),
+                            borderSide: BorderSide(color: Palleta.body2 )
+                        )),
                     onSaved: (email){
                       _email = email;
                     },
@@ -101,7 +131,27 @@ class _CadastroUsuarioState extends State<CadastroUsuario> with SingleTickerProv
                     controller: _controllerSenha,
                     label: "Senha",
                     type: TextInputType.text,
+                    textStyle: TextStyle(color: Palleta.body2),
                     obscure: true,
+                      decoration: InputDecoration(
+                          contentPadding:
+                          EdgeInsets.fromLTRB(16, 8, 16, 8),
+                          //hintText: "E-mail",
+                          labelText: "Senha",
+                          //filled: true,
+                          labelStyle: TextStyle(color: Palleta.body2),
+                          disabledBorder: new OutlineInputBorder(
+                            borderRadius: new BorderRadius.circular(25.0),
+                            borderSide:  BorderSide(color: Palleta.body2 ),
+                          ),
+                          focusedBorder: new OutlineInputBorder(
+                            borderRadius: new BorderRadius.circular(25.0),
+                            borderSide:  BorderSide(color: Palleta.body2 ),
+                          ),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(25),
+                              borderSide: BorderSide(color: Palleta.body2 )
+                          )),
                     onSaved: (senha){
                       _senha = senha;
                     },

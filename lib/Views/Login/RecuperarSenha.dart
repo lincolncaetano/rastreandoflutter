@@ -52,98 +52,98 @@ class _RecuperaSenhaState extends State<RecuperaSenha> with SingleTickerProvider
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Recuperar Senha"),
-      ),
+      appBar: AppBar(),
       extendBodyBehindAppBar: true,
       body: Container(
           child: Center(
             child: Center(
               child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text("Konsagrado Barbearia",
-                            style: TextStyle(
-                              fontSize: 20 *
-                                  MediaQuery.of(context).textScaleFactor,
-                              color: const Color(0xffffffff),
-                              fontWeight: FontWeight.w300,
-                            ))
-                      ],
+                child: Container(
+                  //height: MediaQuery.of(context).size.height * 0.45,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
                     ),
-                    Container(
-                      //height: MediaQuery.of(context).size.height * 0.45,
-                        padding: EdgeInsets.all(20),
-                        //color: Colors.yellow,
-                        child: Form(
-                          key: _formKey,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: <Widget>[
-                              Padding(
-                                padding: EdgeInsets.only(bottom: 8),
-                                child: TextFormField(
-                                  controller: _controllerEmail,
-                                  onSaved: (email){
-                                    _email= email.trim();
-                                  },
-                                  autofocus: false,
-                                  keyboardType: TextInputType.emailAddress,
-                                  validator: (valor){
-                                    return Validador()
-                                        .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
-                                        .add(Validar.EMAIL, msg: "email inválido")
-                                        .valido(valor);
-                                  },
-                                  style: TextStyle(
-                                    /* fontSize: 16 *
-                                        MediaQuery.of(context)
-                                            .textScaleFactor,*/
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w300,
+                    margin: EdgeInsets.symmetric( horizontal: 10),
+                    padding: EdgeInsets.all(20),
+                    //color: Colors.yellow,
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 8),
+                            child: Text("Recuperar Senha" , style: TextStyle(color: Palleta.body2, fontSize: 20, fontWeight: FontWeight.bold),),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 8),
+                            child: TextFormField(
+                              controller: _controllerEmail,
+                              onSaved: (email){
+                                _email= email.trim();
+                              },
+                              autofocus: false,
+                              keyboardType: TextInputType.emailAddress,
+                              validator: (valor){
+                                return Validador()
+                                    .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
+                                    .add(Validar.EMAIL, msg: "email inválido")
+                                    .valido(valor);
+                              },
+                              style: TextStyle(
+                                /* fontSize: 16 *
+                                    MediaQuery.of(context)
+                                        .textScaleFactor,*/
+                                color: Palleta.body2,
+                                fontWeight: FontWeight.w300,
+                              ),
+                              decoration: InputDecoration(
+                                  contentPadding:
+                                  EdgeInsets.fromLTRB(16, 8, 16, 8),
+                                  //hintText: "E-mail",
+                                  labelText: "E-mail",
+                                  //filled: true,
+                                  labelStyle: TextStyle(color: Palleta.body2),
+                                  disabledBorder: new OutlineInputBorder(
+                                    borderRadius: new BorderRadius.circular(25.0),
+                                    borderSide:  BorderSide(color: Palleta.body2 ),
                                   ),
-                                  decoration: InputDecoration(
-                                      contentPadding:
-                                      EdgeInsets.fromLTRB(16, 8, 16, 8),
-                                      hintText: "E-mail",
-                                      filled: true,
-                                      //fillColor: Colors.white,
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(50))),
+                                  focusedBorder: new OutlineInputBorder(
+                                    borderRadius: new BorderRadius.circular(25.0),
+                                    borderSide:  BorderSide(color: Palleta.body2 ),
+                                  ),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(25),
+                                      borderSide: BorderSide(color: Palleta.body2 )
+                                  )),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 10),
+                            child: ElevatedButton(
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.resolveWith(Palleta.getColor)
+                              ),
+                              child: Text(
+                                "Recuperar Senha",
+                                style: TextStyle(
+                                  // fontSize: 16 * MediaQuery.textScaleFactorOf(context),
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsets.only(top: 10),
-                                child: ElevatedButton(
-                                  style: ButtonStyle(
-                                      backgroundColor: MaterialStateProperty.resolveWith(Palleta.getColor)
-                                  ),
-                                  child: Text(
-                                    "Recuperar Senha",
-                                    style: TextStyle(
-                                      // fontSize: 16 * MediaQuery.textScaleFactorOf(context),
-                                      color: Palleta.contrasteEscuro,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  onPressed: (){
-                                    if(_formKey.currentState.validate()){
-                                      _formKey.currentState.save();
-                                      _recuperarSenha(_email);
-                                    }
-                                  },
-                                ),
-                              )
-                            ],
-                          ),
-                        )
-                    ),
-                  ],
+                              onPressed: (){
+                                if(_formKey.currentState.validate()){
+                                  _formKey.currentState.save();
+                                  _recuperarSenha(_email);
+                                }
+                              },
+                            ),
+                          )
+                        ],
+                      ),
+                    )
                 ),
               ),
             ),

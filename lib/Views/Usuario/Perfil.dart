@@ -64,12 +64,9 @@ class _PerfilState extends State<Perfil> with SingleTickerProviderStateMixin {
       appBar: AppBar(
         title: Text("Perfil", style: TextStyle(color: Colors.white),),
           actions: <Widget>[
-            TextButton(
-              child: Text("Editar", style: TextStyle(color: Colors.white)),
-              onPressed: (){
-                Navigator.pushNamed(context, Routers.editarPerfil);
-              },
-            ),
+            IconButton(icon: Icon(Icons.settings_rounded), onPressed: (){
+              Navigator.pushNamed(context, Routers.configuracoes);
+            })
           ]
       ),
       body: SingleChildScrollView(

@@ -75,10 +75,10 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
         backgroundColor: Colors.transparent,
         elevation: 0,
         iconTheme: IconThemeData(
-          color: Palleta.botao, //change your color here
+          color: Colors.white, //change your color here
         ),
-        title: Text("Login" , style: TextStyle(color: Palleta.botao),),
       ),
+      extendBodyBehindAppBar: true,
       body: Center(
         child: SingleChildScrollView(
           child: Column(
@@ -99,6 +99,11 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
               ),*/
               Container(
                 //height: MediaQuery.of(context).size.height * 0.45,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                  ),
+                  margin: EdgeInsets.symmetric( horizontal: 10),
                   padding: EdgeInsets.all(20),
                   //color: Colors.yellow,
                   child: Form(
@@ -106,6 +111,10 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 8),
+                          child: Text("Login" , style: TextStyle(color: Palleta.body2, fontSize: 20, fontWeight: FontWeight.bold),),
+                        ),
                         Padding(
                           padding: EdgeInsets.only(bottom: 8),
                           child: TextFormField(
@@ -125,7 +134,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                               /* fontSize: 16 *
                                           MediaQuery.of(context)
                                               .textScaleFactor,*/
-                              color: Colors.white,
+                              color: Palleta.body2,
                               fontWeight: FontWeight.w400,
                             ),
                             decoration: InputDecoration(
@@ -134,9 +143,19 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                 //hintText: "E-mail",
                                 labelText: "E-mail",
                                 //filled: true,
+                                labelStyle: TextStyle(color: Palleta.body2),
+                                disabledBorder: new OutlineInputBorder(
+                                  borderRadius: new BorderRadius.circular(25.0),
+                                  borderSide:  BorderSide(color: Palleta.body2 ),
+                                ),
+                                focusedBorder: new OutlineInputBorder(
+                                  borderRadius: new BorderRadius.circular(25.0),
+                                  borderSide:  BorderSide(color: Palleta.body2 ),
+                                ),
                                 border: OutlineInputBorder(
-                                    borderRadius:
-                                    BorderRadius.circular(50))),
+                                    borderRadius: BorderRadius.circular(25),
+                                    borderSide: BorderSide(color: Palleta.body2 )
+                                )),
                           ),
                         ),
                         TextFormField(
@@ -156,19 +175,31 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                           style: TextStyle(
                             /*fontSize: 16 *
                                         MediaQuery.of(context).textScaleFactor,*/
-                            color: Colors.white,
+                            color: Palleta.body2,
                             fontWeight: FontWeight.w400,
                           ),
                           decoration: InputDecoration(
-                              contentPadding: EdgeInsets.fromLTRB(16, 8, 16, 8),
-                              //hintText: "Senha",
+                              contentPadding:
+                              EdgeInsets.fromLTRB(16, 8, 16, 8),
+                              //hintText: "E-mail",
                               labelText: "Senha",
+                              //filled: true,
+                              labelStyle: TextStyle(color: Palleta.body2),
+                              disabledBorder: new OutlineInputBorder(
+                                borderRadius: new BorderRadius.circular(25.0),
+                                borderSide:  BorderSide(color: Palleta.body2 ),
+                              ),
+                              focusedBorder: new OutlineInputBorder(
+                                borderRadius: new BorderRadius.circular(25.0),
+                                borderSide:  BorderSide(color: Palleta.body2 ),
+                              ),
                               border: OutlineInputBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(50))),
+                                  borderRadius: BorderRadius.circular(25),
+                                  borderSide: BorderSide(color: Palleta.body2 )
+                              )),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(top: 5, bottom: 5),
+                          padding: EdgeInsets.only(top: 15, bottom: 10),
                           child: GestureDetector(
                               onTap: () => {
                                 Navigator.pushNamed(context, Routers.recuperarSenha)
@@ -177,7 +208,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                   style: TextStyle(
                                     fontFamily: 'Segoe UI',
                                     fontSize: 13,
-                                    color: const Color(0xffffffff),
+                                    color: Palleta.body2,
                                     //fontWeight: FontWeight.w300,
                                   ),
                                   textAlign: TextAlign.right
@@ -190,7 +221,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                             child: Text(
                               "Entrar",
                               style: TextStyle(
-                                color: Palleta.contrasteEscuro,
+                                color: Colors.white,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),

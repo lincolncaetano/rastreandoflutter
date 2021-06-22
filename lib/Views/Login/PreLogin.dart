@@ -79,12 +79,12 @@ class _PreLoginState extends State<PreLogin> with SingleTickerProviderStateMixin
                             "Entrar",
                             style: TextStyle(
                               // fontSize: 16 * MediaQuery.textScaleFactorOf(context),
-                              color: Palleta.contrasteEscuro,
+                              color: Palleta.body2,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.resolveWith(Palleta.getColor)
+                              backgroundColor: MaterialStateProperty.resolveWith(Palleta.getColor2)
                           ),
                           onPressed: (){
                             Navigator.pushNamed(context, Routers.login);

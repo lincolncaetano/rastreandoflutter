@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rastreando/Models/Encomenda.dart';
+import 'package:rastreando/Palleta.dart';
 import 'package:rastreando/Utils/FireUtils.dart';
 import 'package:rastreando/Views/Widgets/TextFormFieldCutom.dart';
 import 'package:http/http.dart' as http;
@@ -199,7 +200,7 @@ class _EncomendaCadastroState extends State<EncomendaCadastro> with SingleTicker
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldState,
-      appBar: AppBar(title: Text("Adicionar encomenda", style: TextStyle(color: Colors.white),),
+      appBar: AppBar(
         actions: <Widget>[
           TextButton(
             child: Text("Salvar", style: TextStyle(color: Colors.white),),
@@ -208,33 +209,88 @@ class _EncomendaCadastroState extends State<EncomendaCadastro> with SingleTicker
             },
           )
         ]),
-      body: Column(
-        children: [
-          TextFormFieldCustom(
-            controller: _controllerCodigo,
-            label: "Codigo",
-            type: TextInputType.text,
-            onSaved: (codigo){
-              _encomenda.codObjeto = codigo;
-            },
-            validator: (valor){
-              return Validador()
-                  .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
-                  .valido(valor);
-            },),
-          TextFormFieldCustom(
-            controller: _controllerDescricao,
-            label: "Descricao",
-            type: TextInputType.text,
-            onSaved: (descricao){
-              _encomenda.descricao = descricao;
-            },
-            validator: (valor){
-              return Validador()
-                  .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
-                  .valido(valor);
-            },),
-        ],
+      body: SingleChildScrollView(
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.white,
+          ),
+          margin: EdgeInsets.symmetric( horizontal: 10),
+          padding: EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 8),
+                child: Text("Adicionar encomenda" , style: TextStyle(color: Palleta.body2, fontSize: 20, fontWeight: FontWeight.bold),),
+              ),
+              TextFormFieldCustom(
+                controller: _controllerCodigo,
+                label: "Codigo",
+                type: TextInputType.text,
+                textStyle: TextStyle(color: Palleta.body2),
+                decoration: InputDecoration(
+                    contentPadding:
+                    EdgeInsets.fromLTRB(16, 8, 16, 8),
+                    //hintText: "E-mail",
+                    labelText: "Codigo",
+                    //filled: true,
+                    labelStyle: TextStyle(color: Palleta.body2),
+                    disabledBorder: new OutlineInputBorder(
+                      borderRadius: new BorderRadius.circular(25.0),
+                      borderSide:  BorderSide(color: Palleta.body2 ),
+                    ),
+                    focusedBorder: new OutlineInputBorder(
+                      borderRadius: new BorderRadius.circular(25.0),
+                      borderSide:  BorderSide(color: Palleta.body2 ),
+                    ),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25),
+                        borderSide: BorderSide(color: Palleta.body2 )
+                    )),
+                onSaved: (codigo){
+                  _encomenda.codObjeto = codigo;
+                },
+                validator: (valor){
+                  return Validador()
+                      .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
+                      .valido(valor);
+                },),
+              TextFormFieldCustom(
+                controller: _controllerDescricao,
+                label: "Descricao",
+                type: TextInputType.text,
+                textStyle: TextStyle(color: Palleta.body2),
+                decoration: InputDecoration(
+                    contentPadding:
+                    EdgeInsets.fromLTRB(16, 8, 16, 8),
+                    //hintText: "E-mail",
+                    labelText: "Descrição",
+                    //filled: true,
+                    labelStyle: TextStyle(color: Palleta.body2),
+                    disabledBorder: new OutlineInputBorder(
+                      borderRadius: new BorderRadius.circular(25.0),
+                      borderSide:  BorderSide(color: Palleta.body2 ),
+                    ),
+                    focusedBorder: new OutlineInputBorder(
+                      borderRadius: new BorderRadius.circular(25.0),
+                      borderSide:  BorderSide(color: Palleta.body2 ),
+                    ),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25),
+                        borderSide: BorderSide(color: Palleta.body2 )
+                    )),
+                onSaved: (descricao){
+                  _encomenda.descricao = descricao;
+                },
+                validator: (valor){
+                  return Validador()
+                      .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
+                      .valido(valor);
+                },),
+            ],
+          ),
+        ),
       ),
     );
   }
