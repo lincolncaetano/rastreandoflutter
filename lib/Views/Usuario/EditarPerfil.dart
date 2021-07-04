@@ -31,9 +31,6 @@ class _EditarPerfilState extends State<EditarPerfil> with SingleTickerProviderSt
   static final _formKey = new GlobalKey<FormState>();
   TextEditingController _controllerNome = TextEditingController();
   TextEditingController _controllerEmail = TextEditingController();
-  TextEditingController _controllerCpf = TextEditingController();
-  TextEditingController _controllerCelular = TextEditingController();
-  TextEditingController _controllerDataNasc = TextEditingController();
 
   @override
   void initState() {
@@ -51,7 +48,6 @@ class _EditarPerfilState extends State<EditarPerfil> with SingleTickerProviderSt
     setState(() {
       usuario = Usuario.fromDocSnap(snapshot);
       _controllerEmail.text = usuario.email;
-      _controllerCpf.text = usuario.cpf;
     });
   }
 
@@ -60,9 +56,6 @@ class _EditarPerfilState extends State<EditarPerfil> with SingleTickerProviderSt
     _controller.dispose();
     _controllerNome.dispose();
     _controllerEmail.dispose();
-    _controllerCpf.dispose();
-    _controllerCelular.dispose();
-    _controllerDataNasc.dispose();
     super.dispose();
   }
 
@@ -172,7 +165,7 @@ class _EditarPerfilState extends State<EditarPerfil> with SingleTickerProviderSt
                 label: "Nome",
                 type: TextInputType.text,
                 onSaved: (nome){
-                 // usuario.nome = nome;
+                  usuario.nome = nome;
                 },
                 validator: (valor){},),
               TextFormFieldCustom(

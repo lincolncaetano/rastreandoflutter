@@ -2,9 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rastreando/Models/Usuario.dart';
 import 'package:rastreando/Palleta.dart';
+import 'package:rastreando/Routers.dart';
 import 'package:validadores/validadores.dart';
 
-import '../../Routers.dart';
 
 class Login extends StatefulWidget {
   @override

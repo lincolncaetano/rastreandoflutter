@@ -38,9 +38,9 @@ class _PerfilState extends State<Perfil> with SingleTickerProviderStateMixin {
     DocumentSnapshot snapshot = await db.collection("usuarios").doc(user.uid).get();
     setState(() {
       usuario = Usuario.fromDocSnap(snapshot);
-      //_controllerNome.text = usuario.nome;
+      _controllerNome.text = usuario.nome;
       _controllerEmail.text = usuario.email;
-      _controllerCpf.text = usuario.cpf;
+      //_controllerCpf.text = usuario.cpf;
       //_controllerCelular.text = usuario.celular;
       //_controllerDataNasc.text = usuario.dataNascimento;
     });
@@ -52,9 +52,6 @@ class _PerfilState extends State<Perfil> with SingleTickerProviderStateMixin {
     _controller.dispose();
     _controllerNome.dispose();
     _controllerEmail.dispose();
-    _controllerCpf.dispose();
-    _controllerCelular.dispose();
-    _controllerDataNasc.dispose();
     super.dispose();
   }
 

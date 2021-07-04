@@ -5,6 +5,7 @@ import 'package:admob_flutter/admob_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:rastreando/Utils/FireUtils.dart';
 import 'package:rastreando/Routers.dart';
@@ -74,54 +75,67 @@ class _EncomendasEntreguesState extends State<EncomendasEntregues> with SingleTi
             Navigator.pushNamed(context, Routers.encomendaCadastro);
           })
         ],),
-      body: StreamBuilder(
-        stream: _streamController.stream,
-        builder: (contex, snapshot){
-          switch (snapshot.connectionState) {
-            case ConnectionState.none:
-            case ConnectionState.waiting:
-              break;
-            case ConnectionState.active:
-            case ConnectionState.done:
+      body: Column(
+        children: [
+          Expanded(
+            flex: 8,
+            child: StreamBuilder(
+              stream: _streamController.stream,
+              builder: (contex, snapshot){
+                switch (snapshot.connectionState) {
+                  case ConnectionState.none:
+                  case ConnectionState.waiting:
+                    break;
+                  case ConnectionState.active:
+                  case ConnectionState.done:
 
-              if(snapshot.hasError){
-                return Expanded(
-                  child: Text("Erro ao carregar mensagens"),
-                );
-              }else{
-                QuerySnapshot querySnapshot = snapshot.data;
-
-
-                return ListView.builder(
-                    itemCount: querySnapshot.docs.length,
-                    itemBuilder: (_, indice){
-                      List<DocumentSnapshot> anuncios = querySnapshot.docs.toList();
-                      DocumentSnapshot documentSnapshot = anuncios[indice];
-                      Encomenda encomenda = Encomenda.fromDocSnap(documentSnapshot);
+                    if(snapshot.hasError){
+                      return Expanded(
+                        child: Text("Erro ao carregar mensagens"),
+                      );
+                    }else{
+                      QuerySnapshot querySnapshot = snapshot.data;
 
 
+                      return ListView.builder(
+                          itemCount: querySnapshot.docs.length,
+                          itemBuilder: (_, indice){
+                            List<DocumentSnapshot> anuncios = querySnapshot.docs.toList();
+                            DocumentSnapshot documentSnapshot = anuncios[indice];
+                            Encomenda encomenda = Encomenda.fromDocSnap(documentSnapshot);
 
-                      return indice % 2 == 0 ? Container(
-                        child: Column(
-                          children: [
-                            ItemEncomenda(
-                                encomenda: encomenda
-                            ),
-                            AdmobBanner(
-                              adUnitId: getBannerAdUnitId(),
-                              adSize: AdmobBannerSize.BANNER,
-                            )
-                          ],
-                        ),
-                      ) : ItemEncomenda(
-                          encomenda: encomenda
-                      ) ;
-                    });
+                            bool alerta = false;
+                            encomenda.eventos.forEach((element) {
+                              if(element.codigo == 'LDI'){
+                                alerta = true;
+                              }
+                            });
+                            encomenda.eventos.forEach((element) {
+                              if(element.codigo == 'BDE'){
+                                alerta = false;
+                              }
+                            });
 
-              }
-          }
-          return Container();
-        },
+
+                            return ItemEncomenda(
+                                encomenda: encomenda,
+                              alerta: alerta,
+                            );
+                          });
+
+                    }
+                }
+                return Container();
+              },
+            ),
+          ),
+          Expanded(
+              flex: 1,
+              child: AdmobBanner(
+                adUnitId: getBannerAdUnitId(),
+                adSize: AdmobBannerSize.BANNER,
+          ))
+        ],
       ),
     );
   }

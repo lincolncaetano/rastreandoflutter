@@ -89,17 +89,17 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                             List<DocumentSnapshot> anuncios = querySnapshot.docs.toList();
                             DocumentSnapshot documentSnapshot = anuncios[indice];
                             Encomenda encomenda = Encomenda.fromDocSnap(documentSnapshot);
-                            return indice % 1 == 0 ? Container(
-                              child: Column(
-                                children: [
-                                  ItemEncomenda(
-                                      encomenda: encomenda
-                                  ),
 
-                                ],
-                              ),
-                            ) : ItemEncomenda(
-                                encomenda: encomenda
+                            bool alerta = false;
+                            encomenda.eventos.forEach((element) {
+                              if(element.codigo == 'LDI'){
+                                alerta = true;
+                              }
+                            });
+
+                            return ItemEncomenda(
+                                encomenda: encomenda,
+                                alerta: alerta,
                             ) ;
                           });
 

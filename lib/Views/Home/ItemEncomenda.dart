@@ -1,20 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rastreando/Models/Encomenda.dart';
+import 'package:rastreando/Palleta.dart';
 
 import '../../Routers.dart';
 
 class ItemEncomenda extends StatelessWidget {
 
   final Encomenda encomenda;
+  final bool alerta;
 
   const ItemEncomenda({
     Key key,
     @required this.encomenda,
+    this.alerta
   }) : super(key: key);
+
+
+  Color getColorTexto(){
+    if(alerta){
+      return Palleta.vermelho;
+    }else{
+      return Colors.black;
+    }
+  }
+
+  Color getColorData(){
+    if(alerta){
+      return Palleta.vermelho;
+    }else{
+      return Palleta.body2;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
@@ -35,11 +56,11 @@ class ItemEncomenda extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(DateFormat("dd").format(DateTime.parse(this.encomenda.eventos[0].dtHrCriado)),
-                        style: TextStyle( fontSize: 20, color: Color(0xFF284E83)),),
+                        style: TextStyle( fontSize: 20, color: getColorData()),),
                       Text(DateFormat("MMMM", 'pt_Br').format(DateTime.parse(this.encomenda.eventos[0].dtHrCriado)),
-                        style: TextStyle( fontSize: 16, color: Color(0xFF284E83)),),
+                        style: TextStyle( fontSize: 16, color: getColorData()),),
                       Text(DateFormat("HH:mm").format(DateTime.parse(this.encomenda.eventos[0].dtHrCriado)),
-                          style: TextStyle( fontSize: 8, color: Color(0xFF284E83))),
+                          style: TextStyle( fontSize: 8, color: getColorData())),
                     ],
                   ),
                 ),
@@ -53,8 +74,9 @@ class ItemEncomenda extends StatelessWidget {
                     children: [
                       Text(this.encomenda.descricao, style: TextStyle(
                           fontSize: 18, fontWeight: FontWeight.bold,
+                          color: getColorTexto()
                       ),),
-                      Text(this.encomenda.eventos[0].descricao)
+                      Text(this.encomenda.eventos[0].descricao, style: TextStyle(color: getColorTexto()),)
                     ],
                   ),
                 ),
@@ -62,7 +84,7 @@ class ItemEncomenda extends StatelessWidget {
               Expanded(
                   flex: 1,
                   child: Center(
-                    child: Icon(Icons.arrow_forward_ios, size: 15,),
+                    child: Icon(Icons.arrow_forward_ios, size: 15, color: getColorTexto(),),
                   ))
             ],
           ),
