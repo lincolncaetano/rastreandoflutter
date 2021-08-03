@@ -15,7 +15,9 @@ import 'package:validadores/validadores.dart';
 import '../../Models/Encomenda.dart';
 
 class EncomendaCadastro extends StatefulWidget {
-  const EncomendaCadastro({Key key}) : super(key: key);
+
+  final Encomenda encomenda;
+  EncomendaCadastro(this.encomenda);
 
   @override
   _EncomendaCadastroState createState() => _EncomendaCadastroState();
@@ -29,6 +31,7 @@ class _EncomendaCadastroState extends State<EncomendaCadastro> with SingleTicker
   Encomenda _encomenda;
   User user;
   AdmobReward rewardAd;
+  bool alteracao = false;
 
   @override
   void initState() {
@@ -80,6 +83,11 @@ class _EncomendaCadastroState extends State<EncomendaCadastro> with SingleTicker
   }
 
   init() async {
+    if(this.widget.encomenda != null){
+      _encomenda = this.widget.encomenda;
+      alteracao = true;
+    }
+
     await FireUtils.verificaUsuarioLogado(context).then((value){
       user = value;
     });

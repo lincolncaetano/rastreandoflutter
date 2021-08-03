@@ -62,7 +62,7 @@ class Routers{
         );
       case encomendaCadastro:
         return MaterialPageRoute(
-            builder: (_) => EncomendaCadastro()
+            builder: (_) => EncomendaCadastro(args)
         );
       case encomendaDetalhe:
         return MaterialPageRoute(
