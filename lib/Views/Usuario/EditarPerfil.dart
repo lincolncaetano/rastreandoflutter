@@ -48,6 +48,7 @@ class _EditarPerfilState extends State<EditarPerfil> with SingleTickerProviderSt
     setState(() {
       usuario = Usuario.fromDocSnap(snapshot);
       _controllerEmail.text = usuario.email;
+      _controllerNome.text = usuario.nome;
     });
   }
 

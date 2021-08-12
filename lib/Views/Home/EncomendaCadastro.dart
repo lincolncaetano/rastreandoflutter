@@ -86,6 +86,8 @@ class _EncomendaCadastroState extends State<EncomendaCadastro> with SingleTicker
     if(this.widget.encomenda != null){
       _encomenda = this.widget.encomenda;
       alteracao = true;
+      _controllerCodigo.text = _encomenda.codObjeto;
+      _controllerDescricao.text = _encomenda.descricao;
     }
 
     await FireUtils.verificaUsuarioLogado(context).then((value){
@@ -141,8 +143,18 @@ class _EncomendaCadastroState extends State<EncomendaCadastro> with SingleTicker
           },
         );
 
-      }else if(json["mensagem"] == "SRO-020: Objeto não encontrado na base de dados dos Correios."){
+      }
+      else if(json["mensagem"] == "SRO-020: Objeto não encontrado na base de dados dos Correios."){
 
+        Encomenda e = Encomenda();
+        e.descricao = _controllerDescricao.text;
+        e.idUsuario = user.uid;
+        e.codObjeto = _controllerCodigo.text;
+        _encomenda = e;
+
+        rewardAd.show();
+
+        /*
         showDialog(
           context: scaffoldState.currentContext,
           builder: (BuildContext context) {
@@ -161,9 +173,10 @@ class _EncomendaCadastroState extends State<EncomendaCadastro> with SingleTicker
                 }
             );
           },
-        );
+        );*/
 
-      }else{
+      }
+      else{
         print(json["mensagem"]);
 
         Encomenda e = Encomenda.fromJson(jsonDecode(response.body));
@@ -183,7 +196,7 @@ class _EncomendaCadastroState extends State<EncomendaCadastro> with SingleTicker
 
   salvarEncomenda() async{
     FirebaseFirestore db = FirebaseFirestore.instance;
-    if(_encomenda.eventos.length > 0 && _encomenda.eventos[0].codigo == "BDE"){
+    if(_encomenda.eventos != null && _encomenda.eventos.length > 0 && _encomenda.eventos[0].codigo == "BDE"){
       db.collection("usuarios")
           .doc(user.uid)
           .collection("encomendaEntregues")
@@ -201,7 +214,12 @@ class _EncomendaCadastroState extends State<EncomendaCadastro> with SingleTicker
           .set(_encomenda.toMap());
     }
 
-    Navigator.pop(context);
+    if(alteracao){
+      Navigator.of(context).popUntil((route) => route.isFirst);
+    }else{
+      Navigator.pop(context);
+    }
+
   }
 
   @override
@@ -236,6 +254,7 @@ class _EncomendaCadastroState extends State<EncomendaCadastro> with SingleTicker
                 controller: _controllerCodigo,
                 label: "Codigo",
                 type: TextInputType.text,
+                enabled: !alteracao,
                 textStyle: TextStyle(color: Palleta.body2),
                 decoration: InputDecoration(
                     contentPadding:

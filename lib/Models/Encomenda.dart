@@ -35,9 +35,13 @@ class Encomenda{
     this.permiteEncargoImportacao = snapshot.data()["permiteEncargoImportacao"];
     this.possuiLocker = snapshot.data()["possuiLocker"];
     this.modalidade = snapshot.data()["modalidade"];
-    this.tipoPostal = TipoPostal.fromJson(snapshot.data()["tipoPostal"]);
+
     this.idUsuario = snapshot.data()["idUsuario"];
     this.descricao = snapshot.data()["descricao"];
+
+    if(snapshot.data()["tipoPostal"] != null){
+      this.tipoPostal = TipoPostal.fromJson(snapshot.data()["tipoPostal"]);
+    }
 
     List<Evento> listaEvento = [];
     List<dynamic> lista = snapshot.data()["eventos"];
@@ -63,7 +67,7 @@ class Encomenda{
     this.modalidade = json["modalidade"];
     this.tipoPostal = TipoPostal.fromJson(json["tipoPostal"]);
 
-    if(true){
+    if(json["eventos"] != null){
       List<Evento> listaEvento = [];
       List<dynamic> lista = json["eventos"];
       lista.forEach((element) {
@@ -76,10 +80,16 @@ class Encomenda{
 
   Map<String, dynamic> toMap(){
 
+
     List<Map<String, dynamic>> listaEventosMap = [];
-    this.eventos.forEach((element) {
-      listaEventosMap.add(element.toMap());
-    });
+
+    if(this.eventos != null && this.eventos.length > 0){
+      this.eventos.forEach((element) {
+        listaEventosMap.add(element.toMap());
+      });
+    }
+
+
 
 
     Map<String, dynamic> map = {
@@ -93,10 +103,14 @@ class Encomenda{
       "permiteEncargoImportacao" : this.permiteEncargoImportacao,
       "possuiLocker" : this.possuiLocker,
       "modalidade" : this.modalidade,
-      "tipoPostal" : this.tipoPostal.toMap(),
+      //"tipoPostal" : this.tipoPostal.toMap(),
       "idUsuario" : this.idUsuario,
       "descricao" : this.descricao,
     };
+
+    if(this.tipoPostal != null){
+      map.addAll({"tipoPostal" : this.tipoPostal.toMap()});
+    }
 
     return map;
   }

@@ -44,6 +44,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     stream.listen((dados) {
       _streamController.add(dados);
     });
+
   }
 
   @override

@@ -41,7 +41,7 @@ void main() async{
   runApp(
       MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: "Rastreando",
+        title: "Ja Chegou",
         home: PreLogin(),
         theme: temaPadrao,
         initialRoute: "/",

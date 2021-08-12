@@ -51,7 +51,7 @@ class ItemEncomenda extends StatelessWidget {
             children: [
               Expanded(
                 flex: 4,
-                child: Padding(
+                child: this.encomenda.eventos.length == 0 ? Container() : Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Column(
                     children: [
@@ -76,7 +76,7 @@ class ItemEncomenda extends StatelessWidget {
                           fontSize: 18, fontWeight: FontWeight.bold,
                           color: getColorTexto()
                       ),),
-                      Text(this.encomenda.eventos[0].descricao, style: TextStyle(color: getColorTexto()),)
+                      this.encomenda.eventos.length == 0 ? Text("Item não postado") : Text(this.encomenda.eventos[0].descricao, style: TextStyle(color: getColorTexto()),)
                     ],
                   ),
                 ),

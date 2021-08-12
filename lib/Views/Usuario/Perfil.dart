@@ -62,7 +62,7 @@ class _PerfilState extends State<Perfil> with SingleTickerProviderStateMixin {
         title: Text("Perfil", style: TextStyle(color: Colors.white),),
           actions: <Widget>[
             IconButton(icon: Icon(Icons.settings_rounded), onPressed: (){
-              Navigator.pushNamed(context, Routers.configuracoes);
+              Navigator.pushNamed(context, Routers.configuracoes).then((value) => doSomeAsyncStuff());
             })
           ]
       ),
