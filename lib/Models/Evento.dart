@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:rastreando/Models/Unidade.dart';
+
+import 'Unidade.dart';
 
 class Evento{
 

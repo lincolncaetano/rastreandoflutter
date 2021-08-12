@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:rastreando/Models/Evento.dart';
-import 'package:rastreando/Models/TipoPostal.dart';
+
+import 'Evento.dart';
+import 'TipoPostal.dart';
+
+
 
 class Encomenda{
 

@@ -71,7 +71,7 @@ class _PreLoginState extends State<PreLogin> with SingleTickerProviderStateMixin
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Image.asset("images/logo.png", height: MediaQuery.of(context).size.width * 0.65),
+                      Image.asset("assets/images/caixa.png", height: MediaQuery.of(context).size.width * 0.65),
                       Padding(
                         padding: EdgeInsets.all(10),
                         child: ElevatedButton(
