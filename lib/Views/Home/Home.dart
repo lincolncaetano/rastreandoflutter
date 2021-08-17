@@ -110,12 +110,12 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               },
             ),
           ),
-          Expanded(
+        /*  Expanded(
             flex: 1,
               child: AdmobBanner(
             adUnitId: getBannerAdUnitId(),
             adSize: AdmobBannerSize.BANNER,
-          ))
+          ))*/
         ],
       ),
     );

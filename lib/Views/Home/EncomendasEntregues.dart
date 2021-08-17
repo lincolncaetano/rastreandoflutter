@@ -129,12 +129,12 @@ class _EncomendasEntreguesState extends State<EncomendasEntregues> with SingleTi
               },
             ),
           ),
-          Expanded(
+         /* Expanded(
               flex: 1,
               child: AdmobBanner(
                 adUnitId: getBannerAdUnitId(),
                 adSize: AdmobBannerSize.BANNER,
-          ))
+          ))*/
         ],
       ),
     );
