@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:rastreando/Models/Usuario.dart';
 import 'package:rastreando/Palleta.dart';
 import 'package:rastreando/Routers.dart';
@@ -121,6 +122,9 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                             autofocus: false,
                             keyboardType: TextInputType.emailAddress,
                             controller: _controllerEmail,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(RegExp(r"\s"))
+                            ],
                             onSaved: (email){
                               _email= email.trim();
                             },

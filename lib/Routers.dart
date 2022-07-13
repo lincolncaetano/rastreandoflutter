@@ -8,6 +8,7 @@ import 'package:rastreando/Views/Login/CadastroUsuario.dart';
 import 'package:rastreando/Views/Login/Login.dart';
 import 'package:rastreando/Views/Login/PreLogin.dart';
 import 'package:rastreando/Views/Login/RecuperarSenha.dart';
+import 'package:rastreando/Views/Login/SplashScreen.dart';
 import 'package:rastreando/Views/Tabs/Tabs.dart';
 import 'package:rastreando/Views/Usuario/EditarPerfil.dart';
 
@@ -30,7 +31,7 @@ class Routers{
     switch( settings.name){
       case "/":
         return MaterialPageRoute(
-            builder: (_) => PreLogin()
+            builder: (_) => SplashScreen()
         );
       case preLogin:
         return MaterialPageRoute(

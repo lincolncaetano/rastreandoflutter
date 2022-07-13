@@ -8,6 +8,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:rastreando/Palleta.dart';
 import 'package:rastreando/Routers.dart';
 import 'package:rastreando/Views/Login/PreLogin.dart';
+import 'package:rastreando/Views/Login/SplashScreen.dart';
 
 
 final ThemeData temaPadrao = ThemeData(
@@ -77,7 +78,7 @@ void main() async{
       MaterialApp(
         debugShowCheckedModeBanner: false,
         title: "Ja Chegou",
-        home: PreLogin(),
+        home: SplashScreen(),
         theme: temaPadrao,
         initialRoute: "/",
         onGenerateRoute: Routers.genarateRoute,
